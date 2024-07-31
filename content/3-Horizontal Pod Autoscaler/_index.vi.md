@@ -22,4 +22,4 @@ $ prepare-environment autoscaling/workloads/hpa
 
 **Kubernetes Metrics Server** là một bộ tổng hợp có khả năng mở rộng và hiệu quả về dữ liệu sử dụng tài nguyên trong cluster của bạn. Nó cung cấp các chỉ số container cần thiết cho **Horizontal Pod Autoscaler**. Metrics server không được triển khai mặc định trong các cluster **Amazon EKS**.
 
-![EKS](/images/0007/0001.png?featherlight=false&width=60pc)
+![EKS](/EKS-Workshop-10/images/0007/0001.png?featherlight=false&width=60pc)
