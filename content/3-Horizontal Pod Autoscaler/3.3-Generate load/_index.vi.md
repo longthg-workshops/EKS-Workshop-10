@@ -8,9 +8,9 @@ pre: "<b> 3.3 </b>"
 
 #### Generate load
 
-Để quan sát quá trình mở rộng của HPA (Horizontal Pod Autoscaler) phản ứng với chính sách mà chúng ta đã cấu hình, chúng ta cần tạo ra một lượng tải trên ứng dụng của chúng ta. Chúng ta sẽ thực hiện điều đó bằng cách gọi trang chủ của công việc với [hey](https://github.com/rakyll/hey).
+Để quan sát quá trình mở rộng với HPA (Horizontal Pod Autoscaler) phản ứng với chính sách đã cấu hình, cần tạo một khối lượng công việc trên ứng dụng của chúng ta. Chúng ta thực hiện điều đó bằng cách gọi trang chủ của công việc với [hey](https://github.com/rakyll/hey).
 
-Lệnh dưới đây sẽ chạy công cụ tạo lượng tải với:
+Lệnh dưới đây sẽ chạy công cụ tạo khối lượng công việc, bao gồm:
 
 - 10 workers chạy đồng thời
 - Gửi 5 truy vấn mỗi giây mỗi worker
@@ -22,7 +22,7 @@ $ kubectl run load-generator \
   --restart=Never -- -c 10 -q 5 -z 60m http://ui.ui.svc/home
 ```
 
-Bây giờ khi chúng ta có các yêu cầu đến ứng dụng của chúng ta, chúng ta có thể theo dõi tài nguyên HPA để theo dõi tiến độ của nó:
+Bây giờ, khi các yêu cầu đến ứng dụng của chúng ta, chúng ta có thể theo dõi tài nguyên HPA để theo dõi tiến độ của nó:
 
 ```bash test=false
 $ kubectl get hpa ui -n ui --watch

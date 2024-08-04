@@ -6,7 +6,7 @@ chapter: false
 pre: "<b> 1. </b>"
 ---
 
-#### Giới thiệu
+#### Tự Động Mở Rộng trên AWS với Kubernetes - Khối lượng công việc
 
 Trong bài wworkshop trước, chúng ta đã xác định các khái niệm về **autoscaling compute**, giờ đây chúng ta sẽ đi sâu vào các cách khác nhau để mở rộng tài nguyên và quản lý các công việc trong một cụm. Chúng ta sẽ tập trung vào hai cơ chế chính để tự động mở rộng:
 

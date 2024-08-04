@@ -14,13 +14,13 @@ Trong bài thực hành này, chúng ta sẽ cài đặt CPA (Cluster Proportion
 manifests/modules/autoscaling/workloads/cpa/deployment.yaml
 ```
 
-Hãy áp dụng điều này vào cluster của chúng ta:
+Hãy áp dụng tài nguyên CPA vào cụm EKS của chúng ta:
 
 ```bash hook=cpa-install timeout=180
 $ kubectl apply -k ~/environment/eks-workshop/modules/autoscaling/workloads/cpa
 ```
 
-Điều này sẽ tạo ra một `Deployment` trong namespace `kube-system` mà chúng ta có thể kiểm tra:
+Điều này sẽ tạo ra một `Deployment` trong namespace `kube-system`. Chúng ta có thể kiểm tra với lệnh sau:
 
 ```bash
 $ kubectl get deployment dns-autoscaler -n other
@@ -28,7 +28,7 @@ NAME             READY   UP-TO-DATE   AVAILABLE   AGE
 dns-autoscaler   1/1     1            1           10s
 ```
 
-Sau khi CPA khởi động, nó sẽ tự động tạo ra một `ConfigMap` mà chúng ta có thể sửa đổi để điều chỉnh cấu hình của nó:
+Sau khi CPA khởi động, nó sẽ tự động tạo ra một `ConfigMap` có thể được sửa đổi để điều chỉnh cấu hình của nó:
 
 ```bash
 $ kubectl describe configmap dns-autoscaler -n kube-system

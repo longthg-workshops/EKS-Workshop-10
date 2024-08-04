@@ -16,13 +16,13 @@ Trong môi trường Kubernetes, **Kubernetes Metrics Server** đóng vai trò l
 $ kubectl -n kube-system get pod -l app.kubernetes.io/name=metrics-server
 ```
 
-Để có cái nhìn về các số liệu mà **HPA** sẽ sử dụng để điều chỉnh hành vi tự tự động mở rộng của nó, bạn có thể sử dụng lệnh `kubectl top`. Ví dụ, lệnh này sẽ hiển thị việc sử dụng tài nguyên của các node trong cụm của chúng ta:
+Để có cái nhìn về các số liệu mà **HPA** sẽ sử dụng để điều chỉnh hành vi tự động mở rộng của nó, bạn có thể sử dụng lệnh `kubectl top`. Ví dụ, lệnh này sẽ hiển thị việc sử dụng tài nguyên của các node trong cụm của chúng ta:
 
 ```bash
 $ kubectl top node
 ```
 
-Bạn cũng có thể lấy được việc sử dụng tài nguyên của các pod, ví dụ:
+Bạn cũng có thể lấy thông tin sử dụng tài nguyên của các pod, ví dụ:
 
 ```bash
 $ kubectl top pod -l app.kubernetes.io/created-by=eks-workshop -A
