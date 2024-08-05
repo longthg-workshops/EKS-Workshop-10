@@ -1,4 +1,4 @@
- ---
+---
 title: "Generate load"
 date: "`r Sys.Date()`"
 weight: 3
@@ -20,6 +20,8 @@ Lệnh dưới đây sẽ chạy công cụ tạo khối lượng công việc, 
 $ kubectl run load-generator \
   --image=williamyeh/hey:latest \
   --restart=Never -- -c 10 -q 5 -z 60m http://ui.ui.svc/home
+
+pod/load-generator created
 ```
 
 Bây giờ, khi các yêu cầu đến ứng dụng của chúng ta, chúng ta có thể theo dõi tài nguyên HPA để theo dõi tiến độ của nó:
@@ -41,4 +43,24 @@ Khi bạn hài lòng với hành vi tự động mở rộng, bạn có thể k�
 $ kubectl delete pod load-generator
 ```
 
-Khi công cụ tạo lượng tải kết thúc, hãy chú ý rằng HPA sẽ từ từ đưa số bản sao về số tối thiểu dựa trên cấu hình của nó.
+Khi công cụ tạo lượng công việc kết thúc, hãy chú ý rằng HPA sẽ từ từ đưa số bản sao về số tối thiểu dựa trên cấu hình của nó. Bạn có thể chạy lại lệnh `kubectl get hpa` để theo dõi điều này:
+```bash
+$ kubectl get hpa ui -n ui --watch
+
+NAME   REFERENCE       TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+ui     Deployment/ui   cpu: 33%/80%   1         4         4          10m
+ui     Deployment/ui   cpu: 26%/80%   1         4         4          10m
+ui     Deployment/ui   cpu: 0%/80%    1         4         4          11m
+ui     Deployment/ui   cpu: 1%/80%    1         4         4          11m
+ui     Deployment/ui   cpu: 0%/80%    1         4         4          11m
+ui     Deployment/ui   cpu: 0%/80%    1         4         4          11m
+ui     Deployment/ui   cpu: 0%/80%    1         4         4          12m
+ui     Deployment/ui   cpu: 0%/80%    1         4         4          12m
+ui     Deployment/ui   cpu: 0%/80%    1         4         3          12m
+ui     Deployment/ui   cpu: 0%/80%    1         4         3          12m
+ui     Deployment/ui   cpu: 0%/80%    1         4         3          14m
+ui     Deployment/ui   cpu: 0%/80%    1         4         2          14m
+ui     Deployment/ui   cpu: 0%/80%    1         4         2          15m
+ui     Deployment/ui   cpu: 0%/80%    1         4         1          16m
+ui     Deployment/ui   cpu: 0%/80%    1         4         1          16m
+```

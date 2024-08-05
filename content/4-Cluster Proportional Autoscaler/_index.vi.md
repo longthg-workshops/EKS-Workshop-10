@@ -6,6 +6,12 @@ chapter: false
 pre: "<b> 4. </b>"
 ---
 
+#### Chuẩn bị môi trường
+```bash
+prepare-environment autoscaling/workloads/cpa
+```
+
+
 #### Cluster Proportional Autoscaler
 
 Trong bài lab này, chúng ta sẽ tìm hiểu về [Cluster Proportional Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler) và cách tăng tỉ lệ của các ứng dụng theo tỉ lệ tính toán của cụm.
@@ -16,7 +22,7 @@ Cluster Proportional Autoscaler (CPA) là một horizontal pod autoscaler mà t�
 
 Một số trường hợp sử dụng chính cho CPA bao gồm:
 
-- Tăng tỷ lệ trên
+- Cung cấp dư
 - Mở rộng các dịch vụ nền tảng cốt lõi
 - Cơ chế đơn giản và dễ dàng để tăng tỷ lệ công việc vì nó không yêu cầu metrics server hoặc prometheus adapter
 
@@ -54,10 +60,10 @@ replicas = min(replicas, max)
 replicas = max(replicas, min)
 ```
 
-**Cầu thang**
+**Scale (Mở rộng)**
 
 - Phương pháp tăng tỷ lệ này sử dụng một hàm bước để xác định tỉ lệ node:bản sao và/hoặc core:bản sao
-- Hàm cầu thang sử dụng điểm dữ liệu cho việc tự động tăng tỷ lệ của core và node từ ConfigMap. Bảng tra cứu mà cho ra số lượng bản sao cao hơn sẽ được sử dụng làm số lượng bản sao mục tiêu.
+- Hàm Scale sử dụng điểm dữ liệu cho việc tự động tăng tỷ lệ của core và node từ ConfigMap. Bảng tra cứu mà cho ra số lượng bản sao cao hơn sẽ được sử dụng làm số lượng bản sao mục tiêu.
 - Một trong hai tham số `coresPerReplica` hoặc `nodesPerReplica` có thể được bỏ qua
 - Bản sao có thể được đặt thành 0 (không giống như trong chế độ tuyến tính)
 - Tăng tỷ lệ lên 0 bản sao có thể được sử dụng để bật các tính năng tùy chọn khi một cụm phát triển
@@ -87,6 +93,4 @@ data:
 
 #### So sánh với Horizontal Pod Autoscaler
 
-Horizontal Pod Autoscaler là một tài nguyên API cấp cao trong Kubernetes. HPA là một bộ tự động điều chỉnh
-
- phản hồi đóng mà giám sát sử dụng CPU/Bộ nhớ của các pod và tự động tăng số lượng bản sao. HPA dựa trên Metrics API và yêu cầu Metrics Server trong khi Cluster Proportional Autoscaler không sử dụng Metrics Server cũng như Metrics API. Cluster Proportional Autoscaler không tăng tỷ lệ với một nguồn tài nguyên Kubernetes mà thay vào đó sử dụng các cờ để xác định các công việc mục tiêu và một ConfigMap cho cấu hình tỷ lệ. CPA cung cấp một vòng lặp kiểm soát đơn giản mà theo dõi kích thước của cụm và tăng tỷ lệ của bộ điều khiển mục tiêu. Các đầu vào cho CPA là số lượng core và node có thể lên lịch trong cụm.
+Horizontal Pod Autoscaler là một tài nguyên API cấp cao trong Kubernetes. HPA là một bộ tự động điều chỉnh phản hồi đóng, có vai trò giám sát sử dụng CPU/Bộ nhớ của các pod và tự động tăng số lượng bản sao. HPA dựa trên Metrics API và yêu cầu Metrics Server trong khi Cluster Proportional Autoscaler không sử dụng Metrics Server cũng như Metrics API. Cluster Proportional Autoscaler không tăng tỷ lệ với một nguồn tài nguyên Kubernetes mà thay vào đó sử dụng các cờ để xác định các công việc mục tiêu và một ConfigMap cho cấu hình tỷ lệ. CPA cung cấp một vòng lặp kiểm soát đơn giản mà theo dõi kích thước của cụm và tăng tỷ lệ của bộ điều khiển mục tiêu. Các đầu vào cho CPA là số lượng core và node có thể lên lịch trong cụm.

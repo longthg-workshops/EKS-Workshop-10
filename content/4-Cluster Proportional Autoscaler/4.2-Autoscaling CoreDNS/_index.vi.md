@@ -34,9 +34,37 @@ Nếu chúng ta tăng kích thước của cụm EKS lên 5 node, **Cluster Prop
 ```bash hook=cpa-pod-scaleout timeout=300
 $ aws eks update-nodegroup-config --cluster-name $EKS_CLUSTER_NAME \
   --nodegroup-name $EKS_DEFAULT_MNG_NAME --scaling-config desiredSize=$(($EKS_DEFAULT_MNG_DESIRED+2))
+
+{
+    "update": {
+        "id": "52cd6682-ec47-3a9d-a77f-8d0b20cd84ae",
+        "status": "InProgress",
+        "type": "ConfigUpdate",
+        "params": [
+            {
+                "type": "DesiredSize",
+                "value": "5"
+            }
+        ],
+        "createdAt": "2024-08-05T10:06:59.405000+00:00",
+        "errors": []
+    }
+}
+```
+
+```bash hook=cpa-pod-scaleout timeout=300
 $ aws eks wait nodegroup-active --cluster-name $EKS_CLUSTER_NAME \
   --nodegroup-name $EKS_DEFAULT_MNG_NAME
+```
+
+```bash hook=cpa-pod-scaleout timeout=300
 $ kubectl wait --for=condition=Ready nodes --all --timeout=120s
+
+node/ip-10-42-109-71.us-west-2.compute.internal condition met
+node/ip-10-42-140-62.us-west-2.compute.internal condition met
+node/ip-10-42-169-164.us-west-2.compute.internal condition met
+node/ip-10-42-171-60.us-west-2.compute.internal condition met
+node/ip-10-42-98-155.us-west-2.compute.internal condition met
 ```
 
 Kubernetes hiện đang hiển thị 5 node ở trạng thái `Ready`:

@@ -1,4 +1,4 @@
- ---
+---
 title: "Horizontal Pod Autoscaler"
 date: "`r Sys.Date()`"
 weight: 3
